@@ -20,11 +20,26 @@
             <img src="" id="qrImg">
         </div>
 
-        <button>Generate QR Code</button>
+        <button onclick="generateQR()">Generate QR Code</button>
 
     </div>
 
-    <footer> <p>Made with <a href="https://github.com/Merco24">Merco24</a> By Merco_Dev&Design</p></footer>
+    <footer>
+        <p>Made with <a href="https://github.com/Merco24">Merco24</a> By Merco_Dev&Design</p>
+    </footer>
+
+    <script>
+
+        let qrtext = document.getElementById("qrtext");
+        let imgBox = document.getElementById("imgBox");
+        let qrImg = document.getElementById("qrImg");
+
+        function generateQR(){
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrtext.value}`;
+            imgBox.classList.add("show-qr");
+            
+        }
+    </script>
 
 </body>
 </html>
