@@ -65,3 +65,21 @@ footer p{
 footer a{
     color: rgb(23, 175, 23);
 }
+#imgBox{
+    width: 200px;
+    border-radius: 5px;
+    margin: 0 auto;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+#imgBox img{
+    width: 100%;
+    padding: 10px;
+}
+#imgBox.show-qr{
+    max-height: 300px;
+    margin: 10px, auto;
+    border: 1px solid #d1d1d1;
+}
+
