@@ -22,6 +22,9 @@ Ce projet consiste en une application web permettant de générer des QR codes �
 4. Cliquez sur le bouton "Générer"
 5. Le QR code généré s'affichera à l'écran et sera également disponible en téléchargement
 
+## Auteurs
+Mervic Jeazet / email: mervicjeazet@gmail.com
+
 ## Contribuer
 
 Toute contribution à ce projet est la bienvenue. Voici comment vous pouvez contribuer :
