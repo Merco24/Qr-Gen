@@ -39,6 +39,12 @@
             qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrtext.value}`;
             imgBox.classList.add("show-qr");
             }
+            else{
+                qrtext.classList.add("error");
+                setTimeout(()=>{
+                    qrtext.classList.remove("error");
+                },900)
+            }
             
         }
 

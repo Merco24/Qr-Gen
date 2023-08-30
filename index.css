@@ -83,3 +83,23 @@ footer a{
     border: 1px solid #d1d1d1;
 }
 
+.error{
+    animation: move 0.1s linear 5;
+}
+@keyframes move {
+    0%{
+        transform: translateX(0);
+    }
+    25%{
+        transform: translateX(-2px);
+    }
+    50%{
+        transform: translateX(0);
+    }
+    75%{
+        transform: translateX(2px);
+    }
+    100%{
+        transform: translateX(0);
+    }
+}
