@@ -6,13 +6,36 @@ body{
     background: #252424;
     padding: 20px;
 }
+header{
+    position: relative;
+    margin-left: 60px;
+    top: 30px;
+}
 header img{
     display: flex;
     position: absolute;
-    top: 30px;
     width: 200px;
     height: auto;
+    animation: travelling linear 4s infinite;
 }
+@keyframes travelling {
+    0%{
+        transform: translateX(0);
+    }
+    25%{
+        transform: translateX(50%);
+    }
+    50%{
+        transform: translateX(100%);
+    }
+    75%{
+        transform: translateX(-50%);
+    }
+    100%{
+        transform: translateX(0);
+    }
+}
+
 .container{
     width: 400px;
     padding: 25px 25px;
@@ -53,6 +76,10 @@ header img{
     cursor: pointer;
     margin: 20px 0;
     font-weight: 500px;
+    transition: all 0.2s ease-in-out;
+}
+.container button:hover{
+    background: rgb(23, 175, 23);
 }
 
 footer p{
