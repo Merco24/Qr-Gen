@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const resetBtn = document.getElementById('reset-btn');
     const downloadBtn = document.getElementById('download-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
 
     let currentFile = null;
 
@@ -81,24 +83,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function startProcessing(imgDataUrl) {
+    async function startProcessing(imgDataUrl) {
         // Show loading, hide upload
         uploadSection.style.display = 'none';
         loadingSection.classList.add('active');
         resultSection.classList.remove('active');
 
-        // Simulate API call delay (e.g. 2.5 seconds)
-        setTimeout(() => {
-            // In a real app, you would send the file to an API like remove.bg here
-            // and set resultImg.src to the returned image URL or base64.
-            // Since we are mocking, we'll just display the original image as the result for now.
-            // To make it look "different", one might apply a CSS filter, but we'll just show the image.
-            resultImg.src = imgDataUrl; // Mocked result
+        progressBar.style.width = '0%';
+        progressText.textContent = 'Initializing AI model...';
+
+        try {
+            // Using @imgly/background-removal
+            // Ensure the library is available globally (from CDN in HTML)
+            if (typeof imglyRemoveBackground === 'undefined') {
+                throw new Error("Background removal library not loaded.");
+            }
+
+            // Configuration for the library
+            const config = {
+                progress: (key, current, total) => {
+                    if (key.includes('fetch')) {
+                        const percent = Math.round((current / total) * 100);
+                        progressBar.style.width = `${percent}%`;
+                        progressText.textContent = `Downloading AI models... ${percent}%`;
+                    } else if (key.includes('compute')) {
+                        progressBar.style.width = '100%';
+                        progressText.textContent = 'Processing image... almost done!';
+                    }
+                }
+            };
+
+            // Call the library function
+            const blob = await imglyRemoveBackground(currentFile, config);
+
+            // Convert result blob to object URL
+            const url = URL.createObjectURL(blob);
+            resultImg.src = url;
 
             // Hide loading, show result
             loadingSection.classList.remove('active');
             resultSection.classList.add('active');
-        }, 2500);
+
+        } catch (error) {
+            console.error("Error processing image:", error);
+            alert("Failed to remove background. Please try a different image or check console for errors.");
+
+            // Reset to upload view on error
+            uploadSection.style.display = 'block';
+            loadingSection.classList.remove('active');
+            resultSection.classList.remove('active');
+            fileInput.value = '';
+            currentFile = null;
+        }
     }
 
     // --- Reset ---

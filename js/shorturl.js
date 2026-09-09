@@ -44,29 +44,42 @@ document.addEventListener('DOMContentLoaded', () => {
         urlInput.style.borderColor = 'var(--border-color)';
         errorMsg.style.display = 'none';
 
-        // Mock shortening process
-        shortenBtn.textContent = 'Shortening...';
+        shortenBtn.innerHTML = '<svg class="spinner" style="width: 20px; height: 20px; display: inline-block; vertical-align: middle; margin-right: 8px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Shortening...';
         shortenBtn.disabled = true;
+        resultBox.classList.remove('show'); // Hide previous result if any
 
-        setTimeout(() => {
-            // Generate a random mock short URL string
-            const randomString = Math.random().toString(36).substring(2, 8);
-            const mockShortUrl = `https://ownt.ls/${randomString}`;
+        // Using is.gd API which is free and doesn't require auth
+        const apiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(inputUrl)}`;
 
-            shortUrlDisplay.textContent = mockShortUrl;
-            shortUrlDisplay.href = mockShortUrl;
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.shorturl) {
+                    shortUrlDisplay.textContent = data.shorturl;
+                    shortUrlDisplay.href = data.shorturl;
 
-            resultBox.classList.add('show');
+                    resultBox.classList.add('show');
+                } else if (data.errormessage) {
+                    throw new Error(data.errormessage);
+                } else {
+                    throw new Error("Failed to shorten URL.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                errorMsg.textContent = "Error: Could not shorten URL. Please try again.";
+                errorMsg.style.display = 'block';
+                urlInput.style.borderColor = 'var(--error-color)';
+            })
+            .finally(() => {
+                // Reset button
+                shortenBtn.textContent = 'Shorten URL';
+                shortenBtn.disabled = false;
 
-            // Reset button
-            shortenBtn.textContent = 'Shorten URL';
-            shortenBtn.disabled = false;
-
-            // Reset copy button state
-            copyText.textContent = 'Copy';
-            copyBtn.style.color = 'var(--secondary-text)';
-
-        }, 600); // 600ms mock delay
+                // Reset copy button state
+                copyText.textContent = 'Copy';
+                copyBtn.style.color = 'var(--secondary-text)';
+            });
     }
 
     // Copy to clipboard

@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const qrResultBox = document.getElementById('qr-result');
     const qrImg = document.getElementById('qr-img');
     const downloadBtn = document.getElementById('download-btn');
+    const copyImgBtn = document.getElementById('copy-img-btn');
+    const copyImgText = document.getElementById('copy-img-text');
 
     generateBtn.addEventListener('click', generateQR);
 
@@ -39,6 +41,40 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 500);
         }
     }
+
+    // Handle Copy Image
+    copyImgBtn.addEventListener('click', async () => {
+        const imageUrl = qrImg.src;
+        if (!imageUrl) return;
+
+        try {
+            const response = await fetch(imageUrl);
+            const blob = await response.blob();
+
+            // Check if ClipboardItem API is supported
+            if (navigator.clipboard && window.ClipboardItem) {
+                const item = new ClipboardItem({ [blob.type]: blob });
+                await navigator.clipboard.write([item]);
+
+                // Success feedback
+                const originalText = copyImgText.textContent;
+                copyImgText.textContent = 'Copied!';
+                copyImgBtn.style.borderColor = 'var(--success-color)';
+                copyImgBtn.style.color = 'var(--success-color)';
+
+                setTimeout(() => {
+                    copyImgText.textContent = originalText;
+                    copyImgBtn.style.borderColor = 'var(--border-color)';
+                    copyImgBtn.style.color = 'var(--text-color)';
+                }, 2000);
+            } else {
+                alert("Your browser does not support copying images directly to clipboard.");
+            }
+        } catch (error) {
+            console.error('Error copying image:', error);
+            alert("Failed to copy image. Try right-clicking and selecting 'Copy image'.");
+        }
+    });
 
     // Handle Download
     downloadBtn.addEventListener('click', () => {

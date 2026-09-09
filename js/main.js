@@ -47,4 +47,39 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
     }
+
+    // --- Scroll Animations (Intersection Observer) ---
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Optional: animate only once
+            }
+        });
+    }, observerOptions);
+
+    const animatedElements = document.querySelectorAll('.fade-in-up');
+    animatedElements.forEach(el => observer.observe(el));
+
+    // --- FAQ Accordion Logic ---
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const faqItem = question.parentElement;
+
+            // Toggle current item
+            faqItem.classList.toggle('active');
+
+            // Close other items (optional, accordion style)
+            // document.querySelectorAll('.faq-item').forEach(item => {
+            //    if(item !== faqItem) item.classList.remove('active');
+            // });
+        });
+    });
 });

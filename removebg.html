@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>Background Remover - Owntools</title>
+    <!-- Include @imgly/background-removal -->
+    <script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.3/dist/browser/bundle.js"></script>
     <style>
         .upload-area {
             border: 2px dashed var(--border-color);
@@ -102,19 +104,33 @@
             align-items: center;
             gap: 1rem;
             padding: 2rem;
+            text-align: center;
         }
 
         .loader.active {
             display: flex;
         }
 
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border-color);
-            border-top: 4px solid var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .progress-bar-container {
+            width: 100%;
+            background-color: var(--border-color);
+            border-radius: 9999px;
+            height: 0.5rem;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-bar {
+            background-color: var(--primary-color);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        #progress-text {
+            font-size: 0.875rem;
+            color: var(--secondary-text);
+            margin-top: 0.25rem;
         }
 
         @keyframes spin {
@@ -161,8 +177,17 @@
 
                 <!-- Loading State -->
                 <div id="loading-section" class="loader">
-                    <div class="spinner"></div>
-                    <p>Processing image... (Mock API)</p>
+                    <svg class="spinner" style="width: 40px; height: 40px; color: var(--primary-color);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <div>
+                        <p style="font-weight: 500;">Processing image... <br><span style="font-size: 0.85rem; color: var(--secondary-text);">(First run may take a few seconds to load AI models)</span></p>
+                        <div class="progress-bar-container">
+                            <div id="progress-bar" class="progress-bar"></div>
+                        </div>
+                        <div id="progress-text">Initializing AI...</div>
+                    </div>
                 </div>
 
                 <!-- Result State -->
@@ -192,7 +217,7 @@
             </div>
 
             <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--secondary-text);">
-                Note: Since this is a static demo without a backend API key, the "Remove BG" process is simulated.
+                Note: Processing runs entirely <strong>in your browser</strong> using AI. Your images are never sent to any server. 100% Free and Private.
             </p>
         </div>
     </main>

@@ -92,7 +92,11 @@
     </header>
 
     <main class="container">
-        <section class="hero">
+        <section class="hero fade-in-up">
+            <!-- Modern abstract SVG illustration for Hero -->
+            <svg style="max-width: 150px; margin: 0 auto 1.5rem; color: var(--primary-color);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
             <h1>Boost your productivity with Owntools</h1>
             <p>A suite of free, robust, and lightning-fast utilities designed for professionals. No signup required.</p>
             <div style="display: flex; gap: 1rem; justify-content: center;">
@@ -102,7 +106,7 @@
 
         <section id="tools" class="tools-grid">
 
-            <a href="qrcode.html" class="card tool-card">
+            <a href="qrcode.html" class="card tool-card fade-in-up" style="transition-delay: 0.1s;">
                 <div class="tool-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
@@ -112,7 +116,7 @@
                 <p>Create custom, high-quality QR codes for your links, text, or contacts instantly.</p>
             </a>
 
-            <a href="removebg.html" class="card tool-card">
+            <a href="removebg.html" class="card tool-card fade-in-up" style="transition-delay: 0.2s;">
                 <div class="tool-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -122,7 +126,7 @@
                 <p>Magically remove backgrounds from your images in seconds. Perfect for product photos and portraits.</p>
             </a>
 
-            <a href="shorturl.html" class="card tool-card">
+            <a href="shorturl.html" class="card tool-card fade-in-up" style="transition-delay: 0.3s;">
                 <div class="tool-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
@@ -132,6 +136,45 @@
                 <p>Shrink long, unwieldy links into compact, shareable URLs to track clicks easily.</p>
             </a>
 
+        </section>
+
+        <section class="faq-section fade-in-up">
+            <div class="tool-header" style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="font-size: 2rem; font-weight: 700;">Frequently Asked Questions</h2>
+                <p>Everything you need to know about Owntools.</p>
+            </div>
+
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is Owntools really free?</span>
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, absolutely. Owntools is a passion project built to provide robust tools without subscriptions or hidden fees. We utilize open-source models and free APIs to keep it accessible for everyone.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How does the Background Remover work without sending my data to a server?</span>
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We use cutting-edge WebAssembly AI models (@imgly/background-removal) that download and run entirely within your browser. Your images never leave your device, ensuring 100% privacy and no server costs.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do I need to create an account?</span>
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No account creation is required. You can start using all the tools immediately upon visiting the site. No emails, no passwords, just productivity.</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
