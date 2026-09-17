@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>QR Code Generator - Owntools</title>
+    <style>
+        .qr-result-box {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.5s ease, max-height 0.5s ease;
+        }
+
+        .qr-result-box.show {
+            opacity: 1;
+            max-height: 500px; /* arbitrary large value to allow content to show */
+        }
+
+        .qr-image-wrapper {
+            background: white; /* Always white so QR is scannable even in dark mode */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .qr-image-wrapper img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .error-shake {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Owntools.</a>
+            <nav class="nav-links">
+                <a href="qrcode.html" class="active">QR Code</a>
+                <a href="removebg.html">Remove BG</a>
+                <a href="shorturl.html">Short URL</a>
+                <button id="theme-toggle" aria-label="Toggle Dark Mode"></button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-layout">
+            <div class="tool-header">
+                <h1>QR Code Generator</h1>
+                <p>Enter any text or URL to instantly generate a scannable QR code.</p>
+            </div>
+
+            <div class="card">
+                <div class="input-group">
+                    <input type="text" id="qr-input" class="input-field" placeholder="Enter text or URL here (e.g., https://example.com)" maxlength="500">
+                </div>
+                <button id="generate-btn" class="btn" style="width: 100%;">Generate QR Code</button>
+
+                <div id="qr-result" class="qr-result-box">
+                    <div class="qr-image-wrapper">
+                        <img id="qr-img" src="" alt="Generated QR Code" crossOrigin="anonymous">
+                    </div>
+                    <div style="display: flex; gap: 1rem; width: 100%;">
+                        <button id="copy-img-btn" class="btn btn-outline" style="flex: 1;">
+                            <svg style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 5px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                            <span id="copy-img-text">Copy Image</span>
+                        </button>
+                        <button id="download-btn" class="btn btn-outline" style="flex: 1;">
+                            <svg style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 5px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            Download Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Owntools. Crafted with care by Merco_Dev&Design.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/qrcode.js"></script>
+</body>
+</html>
